@@ -41,7 +41,9 @@
                     index,
                     baseTime,
                     baseTime += duration,
-                    duration
+                    duration,
+                    new Date(baseTime - duration),
+                    new Date(baseTime)
                 ],
                 itemStyle: {
                     normal: {
@@ -79,9 +81,10 @@
 
     option = {
         tooltip: {
-            formatter: function (params) {
-                return params.marker + params.name + ': ' + params.value[3] + ' ms';
-            }
+            show: true
+        //     formatter: function (params) {
+        //         return params.marker + params.name + ': ' + params.value[3] + ' ms';
+        //     }
         },
         title: {
             text: 'Profile',
@@ -116,7 +119,8 @@
             scale: true,
             axisLabel: {
                 formatter: function (val) {
-                    return Math.max(0, val - startTime) + ' ms';
+                    // return Math.max(0, val - startTime) + ' ms';
+                    return val;
                 }
             }
         },
@@ -133,8 +137,10 @@
             },
             encode: {
                 x: [1, 2],
-                y: 0
+                y: 0,
+                tooltip: [0, 1, 2]
             },
+            dimensions: ['类型', '开始时间', '结束时间'],
             data: data
         }]
     };
